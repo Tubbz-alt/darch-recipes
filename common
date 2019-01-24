@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+install_packages() {
+    pacman -S --noconfirm "$@"
+}
+
+clear_package_cache() {
+    pacman -Scc --noconfirm
+}

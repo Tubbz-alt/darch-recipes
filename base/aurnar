@@ -1,0 +1,57 @@
+#!/bin/bash
+
+set -uo pipefail
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+
+BUCKET_NAME="aurnar"
+REMOTE_PATH="b2://${BUCKET_NAME}/x86_64"
+LOCAL_PATH=${LOCAL_PATH:-"/tmp/local-repo"}
+REPO_NAME="aurnar"
+
+mkdir -p "$LOCAL_PATH"
+
+pull_repo() {
+    # Backblaze's b2 client is dump and can't sync specific filename globs
+    backblaze-b2 download-file-by-name "$BUCKET_NAME" "x86_64/${REPO_NAME}.db.tar.xz" "${LOCAL_PATH}/${REPO_NAME}.db.tar.xz"
+    backblaze-b2 download-file-by-name "$BUCKET_NAME" "x86_64/${REPO_NAME}.files.tar.xz" "${LOCAL_PATH}/${REPO_NAME}.files.tar.xz"
+    ln -sf "${REPO_NAME}.db.tar.xz" "${LOCAL_PATH}/${REPO_NAME}.db"
+    ln -sf "${REPO_NAME}.files.tar.xz" "${LOCAL_PATH}/${REPO_NAME}.files"
+}
+
+push_repo() {
+    backblaze-b2 sync "$LOCAL_PATH" "$REMOTE_PATH"
+}
+
+case "$1" in
+    "sync")
+        pull_repo
+        ## Clean up older packages that may or may not have been deleted from the
+        ## remote so that we do not reupload them
+        rm -f "$LOCAL_PATH/"*.pkg.tar.xz
+        ## Upgrade all outdated packages in the repo
+        aur sync -d "$REPO_NAME" --root "$LOCAL_PATH" --noview -u
+        push_repo
+    ;;
+    "add")
+        pull_repo
+        ## Clean up older packages that may or may not have been deleted from the
+        ## remote so that we do not reupload them
+        rm -f "$LOCAL_PATH/"*.pkg.tar.xz
+        ## Build package and add it to the repo
+        aur sync -d "$REPO_NAME" --root "$LOCAL_PATH" --noview "${@:2}"
+        push_repo
+    ;;
+    "rm" | "remove")
+        pull_repo
+        ## Clean up older packages that may or may not have been deleted from the
+        ## remote so that we do not reupload them
+        rm -f "$LOCAL_PATH/"*.pkg.tar.xz
+        ## Remove package from repo
+        repo-remove "$LOCAL_PATH/$REPO_NAME.db.tar.xz" "${@:2}"
+        push_repo
+        echo "Backblaze's B2 client is stupid. Remember to cleanup package in the bucket."
+    ;;
+    *)
+        echo "help"
+    ;;
+esac

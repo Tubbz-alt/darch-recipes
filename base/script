@@ -1,0 +1,77 @@
+#!/bin/bash
+set -e
+
+. ../common
+
+# Initialize the keys
+pacman-key --init
+pacman-key --populate archlinux
+
+# Add my pre-compiled AUR packages repository
+cat <<EOF >> /etc/pacman.conf
+[aurnar]
+SigLevel = Never
+Server = https://f000.backblazeb2.com/file/aurnar/x86_64
+EOF
+
+# Resync the database
+pacman -Sy --noconfirm
+# Update gpg keys before we install anything else.
+pacman -S --noconfirm archlinux-keyring
+# Now update everything.
+pacman -Syu --noconfirm
+
+# Let's update the mirrors.
+install_packages wget sed
+wget -q -O- "https://www.archlinux.org/mirrorlist/?country=IS&country=SE&country=DK&protocol=https&ip_version=4&use_mirror_status=on" \
+  | sed -e "s/#Server/Server/g" \
+> /etc/pacman.d/mirrorlist
+
+# Run base install, with dev tools. The "bootstrap" fs doesn't contain everything, just what you need to bootstrap.
+install_packages base base-devel
+
+# Setup the locales.
+echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+locale-gen
+
+# Timezone
+rm /etc/localtime
+ln -s ../usr/share/zoneinfo/Iceland /etc/localtime
+
+# Time sync
+install_packages ntp
+systemctl enable ntpd
+
+# Set the root password
+if [ -n  "$ROOT_PASSWD" ]; then
+    echo "Using root password provided by environment variable..."
+    echo -en "$ROOT_PASSWD\n$ROOT_PASSWD" | passwd
+else
+    echo "Using default root password..."
+    echo -en "password\npassword" | passwd
+fi
+
+# Install Darch
+install_packages darch
+# We don't need grub as a bootloader, but we use
+# their helper scripts in Darch to generate menu entries.
+install_packages grub
+# Enable containerd, which was brought in as a dependency.
+systemctl enable containerd
+# I store containerd on /var/lib/darch/containerd, because /var/lib/darch
+# is an external partition. This way, images are persisted across boots.
+mkdir -p /etc/containerd
+echo "root = \"/var/lib/darch/containerd\"" > /etc/containerd/config.toml
+
+# Install my AUR(nar) repo update script
+cp aurnar /usr/local/bin/aurnar
+# And its dependencies
+install_packages backblaze-b2 aurutils
+
+# The system is on btrfs, need the tools
+install_packages btrfs-progs
+
+# This one's obvious
+install_packages iptables bind-tools
+
+clear_package_cache

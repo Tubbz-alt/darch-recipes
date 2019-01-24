@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+. ../common
+
+# Add users
+useradd -m -G adm,ftp,games,http,log,rfkill,sys,systemd-journal,users,uucp,wheel -s /bin/bash arnar
+
+# Set the user password
+if [ -n  "$USER_PASSWD" ]; then
+    echo "Using user password provided by environment variable..."
+    echo -en "$USER_PASSWD\n$USER_PASSWD" | passwd arnar
+else
+    echo "Using default user password..."
+    echo -en "password\npassword" | passwd arnar
+fi
+
+# Install fresh copy of dotfiles for arnar.
+# dotbot requires Python.
+install_packages python git
+runuser -l arnar -c "git clone https://github.com/arnarg/dotfiles.git ~/.dotfiles"
+runuser -l arnar -c "cd ~/.dotfiles && ./install"
+# Now that they are installed, removed dotbot to clean up the image.
+runuser -l arnar -c "rm -r ~/.dotfiles/dotbot"
+
+# Setup sudo
+install_packages sudo
+echo "arnar ALL=(ALL) ALL" >> /etc/sudoers.d/arnar
+
+clear_package_cache

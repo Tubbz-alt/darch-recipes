@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+. ../common
+
+# My text editors of choice
+install_packages vim code
+
+# Misc tools
+install_packages curl jq kr
+
+clear_package_cache

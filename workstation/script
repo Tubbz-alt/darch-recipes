@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+. ../common
+
+# Enable systemd networking.
+cp wired.network /etc/systemd/network/
+systemctl enable systemd-networkd
+systemctl enable systemd-resolved
+
+# Tool to control RGB lights on my PC
+install_packages msi-rgb
+
+clear_package_cache

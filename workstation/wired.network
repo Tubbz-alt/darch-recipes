@@ -1,0 +1,7 @@
+[Match]
+Name=en*
+
+[Network]
+DNS=10.10.10.2
+Address=192.168.1.60/24
+Gateway=192.168.1.254
