@@ -4,7 +4,7 @@ set -e
 . ../common
 
 # Add users
-useradd -m -G adm,ftp,games,http,log,rfkill,sys,systemd-journal,users,uucp,wheel -s /bin/bash arnar
+useradd -m -G adm,ftp,games,video,http,log,rfkill,sys,systemd-journal,users,uucp,wheel -s /bin/bash arnar
 
 # Set the user password
 if [ -n  "$USER_PASSWD" ]; then
@@ -27,4 +27,5 @@ runuser -l arnar -c "rm -r ~/.dotfiles/dotbot"
 install_packages sudo
 echo "arnar ALL=(ALL) ALL" >> /etc/sudoers.d/arnar
 
-clear_package_cache
+# Insert ~/.profile
+cp profile /home/arnar/.profile

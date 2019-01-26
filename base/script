@@ -73,5 +73,3 @@ install_packages btrfs-progs
 
 # This one's obvious
 install_packages iptables bind-tools
-
-clear_package_cache

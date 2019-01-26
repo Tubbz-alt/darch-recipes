@@ -9,5 +9,3 @@ install_packages vim code
 
 # Misc tools
 install_packages curl jq kr
-
-clear_package_cache
