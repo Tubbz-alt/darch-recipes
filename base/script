@@ -72,4 +72,4 @@ install_packages backblaze-b2 aurutils
 install_packages btrfs-progs
 
 # This one's obvious
-install_packages iptables bind-tools
+install_packages iptables bind-tools openssh
