@@ -4,8 +4,11 @@ set -e
 . ../common
 
 
+# Install X
+install_packages xorg-server xorg-xinit xorg-setxkbmap
+
 # WM and X, Font awesome for icons in i3 status bar
-install_packages i3-gaps i3blocks j4-dmenu-desktop xorg-server xorg-xinit xorg-setxkbmap ttf-font-awesome
+install_packages i3-gaps i3blocks j4-dmenu-desktop ttf-font-awesome
 
 # My terminal of choice
 install_packages rxvt-unicode ttf-inconsolata
