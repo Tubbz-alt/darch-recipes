@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+IMAGES="base user desktop development workstation"
+TAG=`date +"%Y-%m-%d-%H%M%S"`
+
+if [[ -z $USER_PASSWD ]]
+then
+    echo -n "Enter user password: "
+    read -s USER_PASSWD
+    echo ""
+fi
+
+sudo darch recipes build \
+    -t "$TAG,latest" \
+    -p granra/darch-arch-" \
+    -e ROOT_PASSWD="$(openssl rand -base64 18)" \
+    -e USER_PASSWD=$USER_PASSWD \
+    $IMAGES
