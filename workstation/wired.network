@@ -1,5 +1,5 @@
 [Match]
-Name=en*
+MACAddress=4c:cc:6a:f9:f9:69
 
 [Network]
 DNS=10.10.10.2
