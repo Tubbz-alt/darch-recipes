@@ -15,4 +15,7 @@ systemctl enable systemd-resolved
 # Tool to control RGB lights on my PC
 install_packages msi-rgb
 
+# My workstation requires special kernel parameters
+cp darch-extract /darch-extract
+
 clear_package_cache
