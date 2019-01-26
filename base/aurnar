@@ -11,7 +11,7 @@ REPO_NAME="aurnar"
 mkdir -p "$LOCAL_PATH"
 
 pull_repo() {
-    # Backblaze's b2 client is dump and can't sync specific filename globs
+    # Backblaze's b2 client is dumb and can't sync specific filename globs
     backblaze-b2 download-file-by-name "$BUCKET_NAME" "x86_64/${REPO_NAME}.db.tar.xz" "${LOCAL_PATH}/${REPO_NAME}.db.tar.xz"
     backblaze-b2 download-file-by-name "$BUCKET_NAME" "x86_64/${REPO_NAME}.files.tar.xz" "${LOCAL_PATH}/${REPO_NAME}.files.tar.xz"
     ln -sf "${REPO_NAME}.db.tar.xz" "${LOCAL_PATH}/${REPO_NAME}.db"
