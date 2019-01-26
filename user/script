@@ -29,11 +29,15 @@ echo "arnar ALL=(ALL) ALL" >> /etc/sudoers.d/arnar
 # Don't lecture me sudo!
 echo "Defaults lecture = never" >> /etc/sudoers.d/lecture
 
+# Create base directories
+mkdir -p /home/arnar/Downloads
+mkdir -p /home/arnar/Pictures
+mkdir -p /home/arnar/Code
+
 # Insert ~/.profile
 cp profile /home/arnar/.profile
 
 # Download and set wallpaper
-mkdir -p /home/arnar/Pictures
 wget https://i.imgur.com/kiy2C51.jpg -O /home/arnar/Pictures/wallpaper.jpg || true # let's not fail build if the picture doesn't exist
 cp fehbg /home/arnar/.fehbg
 
