@@ -36,3 +36,6 @@ cp profile /home/arnar/.profile
 mkdir -p /home/arnar/Pictures
 wget https://i.imgur.com/kiy2C51.jpg -O /home/arnar/Pictures/wallpaper.jpg || true # let's not fail build if the picture doesn't exist
 cp fehbg /home/arnar/.fehbg
+
+# Make sure arnar owns everything in /home/arnar
+chown -R arnar:arnar /home/arnar
