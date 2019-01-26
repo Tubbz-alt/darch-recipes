@@ -26,6 +26,8 @@ runuser -l arnar -c "rm -r ~/.dotfiles/dotbot"
 # Setup sudo
 install_packages sudo
 echo "arnar ALL=(ALL) ALL" >> /etc/sudoers.d/arnar
+# Don't lecture me sudo!
+echo "Defaults lecture = never" >> /etc/sudoers.d/lecture
 
 # Insert ~/.profile
 cp profile /home/arnar/.profile
