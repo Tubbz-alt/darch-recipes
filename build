@@ -13,7 +13,7 @@ fi
 
 sudo darch recipes build \
     -t "$TAG,latest" \
-    -p granra/darch-arch-" \
+    -p "granra/darch-arch-" \
     -e ROOT_PASSWD="$(openssl rand -base64 18)" \
     -e USER_PASSWD=$USER_PASSWD \
     $IMAGES
