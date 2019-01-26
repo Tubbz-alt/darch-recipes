@@ -3,11 +3,9 @@ set -e
 
 . ../common
 
-# Drivers
-install_packages xf86-video-amdgpu
 
 # WM and X, Font awesome for icons in i3 status bar
-install_packages i3-gaps i3blocks j4-dmenu-desktop xorg-xinit xorg-setxkbmap ttf-font-awesome
+install_packages i3-gaps i3blocks j4-dmenu-desktop xorg-server xorg-xinit xorg-setxkbmap ttf-font-awesome
 
 # My terminal of choice
 install_packages rxvt-unicode ttf-inconsolata

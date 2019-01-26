@@ -4,6 +4,9 @@ set -e
 
 . ../common
 
+# Install graphics driver
+install_packages xf86-video-amdgpu
+
 # Enable systemd networking.
 cp wired.network /etc/systemd/network/
 systemctl enable systemd-networkd
