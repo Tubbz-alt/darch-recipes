@@ -19,7 +19,7 @@ pull_repo() {
 }
 
 push_repo() {
-    backblaze-b2 sync "$LOCAL_PATH" "$REMOTE_PATH"
+    backblaze-b2 sync --skipNewer "$LOCAL_PATH" "$REMOTE_PATH"
 }
 
 case "$1" in
