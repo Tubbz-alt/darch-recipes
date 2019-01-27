@@ -41,5 +41,8 @@ cp profile /home/arnar/.profile
 wget https://i.imgur.com/kiy2C51.jpg -O /home/arnar/Pictures/wallpaper.jpg || true # let's not fail build if the picture doesn't exist
 cp fehbg /home/arnar/.fehbg
 
+# I have some dotfiles in home folder that I would like to persist
+ln -s /home/arnar/.persist/gitconfig /home/arnar/.gitconfig
+
 # Make sure arnar owns everything in /home/arnar
 chown -R arnar:arnar /home/arnar
