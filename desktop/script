@@ -14,7 +14,7 @@ install_packages i3-gaps i3blocks rofi j4-dmenu-desktop feh
 install_packages rxvt-unicode
 
 # Install fonts
-install_packages ttf-inconsolata ttf-roboto ttf-font-awesome
+install_packages ttf-inconsolata ttf-roboto ttf-font-icons
 
 # My browser of choice
 install_packages firefox
