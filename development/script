@@ -7,5 +7,8 @@ set -e
 # My text editors of choice
 install_packages vim code
 
+# Install code extensions
+runuser -l arnar -c "cat $(pwd)/vscode-extensions | xargs -n 1 code --install-extension"
+
 # Misc tools
 install_packages curl jq kr
