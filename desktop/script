@@ -8,10 +8,13 @@ set -e
 install_packages xorg-server xorg-xinit xorg-setxkbmap xorg-xsetroot
 
 # WM and X, Font awesome for icons in i3 status bar
-install_packages i3-gaps i3blocks rofi j4-dmenu-desktop feh ttf-font-awesome
+install_packages i3-gaps i3blocks rofi j4-dmenu-desktop feh
 
 # My terminal of choice
-install_packages rxvt-unicode ttf-inconsolata
+install_packages rxvt-unicode
+
+# Install fonts
+install_packages ttf-inconsolata ttf-roboto ttf-font-awesome
 
 # My browser of choice
 install_packages firefox
