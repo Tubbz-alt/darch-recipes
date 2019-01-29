@@ -43,6 +43,7 @@ cp fehbg /home/arnar/.fehbg
 
 # I have some dotfiles in home folder that I would like to persist
 ln -s /home/arnar/.persist/gitconfig /home/arnar/.gitconfig
+ln -s /home/arnar/.persist/b2_account_info /home/arnar/.b2_account_info
 
 # Make sure arnar owns everything in /home/arnar
 chown -R arnar:arnar /home/arnar
