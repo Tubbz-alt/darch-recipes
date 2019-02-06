@@ -10,7 +10,7 @@ RUN echo -e "#!/bin/bash\nbackblaze-b2 authorize-account \$B2_ACCOUNT_ID \$B2_AC
     chmod +x sync.sh
 
 # makepkg doesn't run as root
-RUN groupadd -g 1000 runner && useradd -u 1000 -g runner -r -M -s /usr/bin/nologin runner
+RUN groupadd -g 1000 runner && useradd -u 1000 -g runner -m -s /usr/bin/nologin runner
 
 USER runner
 
