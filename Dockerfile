@@ -6,7 +6,7 @@ RUN echo -e "[aurnar]\nSigLevel = Never\nServer = https://f000.backblazeb2.com/f
 
 COPY base/aurnar /usr/bin/aurnar
 
-RUN echo -e "#!/bin/bash\nbackblaze-b2 authorize-account \$B2_ACCOUNT_ID \$B2_ACCOUNT_KEY\naurnar sync" > /sync.sh && \
+RUN echo -e "#!/bin/bash\nbackblaze-b2 authorize-account \$B2_ACCOUNT_ID \$B2_ACCOUNT_KEY\naurnar sync --noconfirm" > /sync.sh && \
     chmod +x sync.sh
 
 # makepkg doesn't run as root
