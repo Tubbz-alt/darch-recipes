@@ -5,10 +5,18 @@ set -e
 . ../common
 
 # My text editors of choice
-install_packages vim code
+install_packages neovim code
+
+# NeoVim
+runuser -l arnar -c "echo 'alias vim=\"nvim\"' >> ~/.bashrc"
+runuser -l arnar -c "nvim -es +PlugInstall +qall"
+install_packages the_silver_searcher
 
 # Install code extensions
 runuser -l arnar -c "cat $(pwd)/vscode-extensions | xargs -n 1 code --install-extension"
+
+# Go
+install_packages go
 
 # Misc tools
 install_packages curl jq kr
