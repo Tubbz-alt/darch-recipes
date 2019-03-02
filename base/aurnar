@@ -29,7 +29,7 @@ case "$1" in
         ## remote so that we do not reupload them
         rm -f "$LOCAL_PATH/"*.pkg.tar.xz
         ## Upgrade all outdated packages in the repo
-        aur sync -d "$REPO_NAME" --root "$LOCAL_PATH" --noview -u
+        aur sync -d "$REPO_NAME" --root "$LOCAL_PATH" --noview -u "${@:2}"
         push_repo
     ;;
     "add")
