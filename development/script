@@ -10,7 +10,7 @@ install_packages neovim code
 # NeoVim
 runuser -l arnar -c "curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 runuser -l arnar -c "echo 'alias vim=\"nvim\"' >> ~/.bashrc"
-runuser -l arnar -c "nvim +PlugInstall +qall"
+runuser -l arnar -P -c "nvim +PlugInstall +qall"
 install_packages the_silver_searcher
 
 # Install code extensions
