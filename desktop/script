@@ -11,7 +11,7 @@ install_packages xorg-server xorg-xinit xorg-setxkbmap xorg-xsetroot
 install_packages i3-gaps i3blocks rofi j4-dmenu-desktop feh
 
 # My terminal of choice
-install_packages rxvt-unicode
+install_packages alacritty
 
 # Install fonts
 install_packages ttf-inconsolata ttf-roboto ttf-font-icons
