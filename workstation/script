@@ -14,6 +14,7 @@ systemctl enable systemd-resolved
 
 # Insert my firewall rules
 cp iptables.rules /etc/iptables/iptables.rules
+systemctl enable iptables
 
 # Tool to control RGB lights on my PC
 install_packages msi-rgb
