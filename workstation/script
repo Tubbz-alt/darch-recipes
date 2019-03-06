@@ -12,6 +12,9 @@ cp wired.network /etc/systemd/network/
 systemctl enable systemd-networkd
 systemctl enable systemd-resolved
 
+# Insert my firewall rules
+cp iptables.rules /etc/iptables/iptables.rules
+
 # Tool to control RGB lights on my PC
 install_packages msi-rgb
 
