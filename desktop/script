@@ -4,7 +4,7 @@ set -e
 . ../common
 
 # Install sway
-install_packages sway xorg-server-xwayland bemenu-git
+install_packages sway xorg-server-xwayland bemenu-git waybar-git
 
 # My terminal of choice
 install_packages alacritty
