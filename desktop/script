@@ -3,12 +3,8 @@ set -e
 
 . ../common
 
-
-# Install X
-install_packages xorg-server xorg-xinit xorg-setxkbmap xorg-xsetroot
-
-# WM and X, Font awesome for icons in i3 status bar
-install_packages i3-gaps i3blocks rofi j4-dmenu-desktop feh
+# Install sway
+install_packages sway xorg-server-xwayland bemenu-git
 
 # My terminal of choice
 install_packages alacritty
