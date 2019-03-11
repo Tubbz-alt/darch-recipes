@@ -4,17 +4,14 @@ set -e
 
 . ../common
 
-# My text editors of choice
-install_packages neovim code
+# My text editor of choice
+install_packages neovim
 
 # NeoVim
 runuser -l arnar -c "curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 runuser -l arnar -P -c "nvim +PlugInstall +qall"
 install_packages the_silver_searcher
 ln -s /usr/bin/nvim /usr/bin/vim
-
-# Install code extensions
-runuser -l arnar -c "cat $(pwd)/vscode-extensions | xargs -n 1 code --install-extension"
 
 # Go
 install_packages go
