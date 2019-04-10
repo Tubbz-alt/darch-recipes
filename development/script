@@ -5,7 +5,10 @@ set -e
 . ../common
 
 # My text editor of choice
-install_packages neovim
+install_packages neovim python-pip
+
+# Deoplete dependencies
+runuser -l arnar -c "pip3 install --user pynvim"
 
 # NeoVim
 runuser -l arnar -c "curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
