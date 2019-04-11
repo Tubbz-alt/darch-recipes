@@ -4,6 +4,9 @@ set -e
 
 . ../common
 
+# Go
+install_packages go
+
 # My text editor of choice
 install_packages neovim python-pip
 
@@ -15,9 +18,6 @@ runuser -l arnar -c "curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --crea
 runuser -l arnar -P -c "nvim +PlugInstall +qall"
 install_packages the_silver_searcher
 ln -s /usr/bin/nvim /usr/bin/vim
-
-# Go
-install_packages go
 
 # Misc tools
 install_packages curl jq kr
