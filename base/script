@@ -66,6 +66,9 @@ systemctl enable containerd
 mkdir -p /etc/containerd
 echo "root = \"/var/lib/darch/containerd\"" > /etc/containerd/config.toml
 
+# This one's nice to have available
+install_packages yay
+
 # Install my AUR(nar) repo update script
 cp aurnar /usr/local/bin/aurnar
 # And its dependencies
