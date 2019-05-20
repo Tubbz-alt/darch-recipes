@@ -10,7 +10,6 @@ install_packages xf86-video-amdgpu
 # Enable systemd networking.
 cp wired.network /etc/systemd/network/
 systemctl enable systemd-networkd
-systemctl enable systemd-resolved
 
 # Insert my firewall rules
 cp iptables.rules /etc/iptables/iptables.rules
