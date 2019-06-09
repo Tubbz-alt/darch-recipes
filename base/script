@@ -27,6 +27,9 @@ wget -q -O- "https://www.archlinux.org/mirrorlist/?country=IS&country=SE&country
   | sed -e "s/#Server/Server/g" \
 > /etc/pacman.d/mirrorlist
 
+# Resync the database
+pacman -Sy --noconfirm
+
 # Run base install, with dev tools. The "bootstrap" fs doesn't contain everything, just what you need to bootstrap.
 install_packages base base-devel
 
