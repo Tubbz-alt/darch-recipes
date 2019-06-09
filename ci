@@ -5,9 +5,5 @@ set -e
 
 IMAGE="workstation"
 
-# Tag latest image with the build number
-sudo darch images tag granra/darch-arch-$IMAGE:latest granra/darch-arch-$IMAGE:v$TRAVIS_BUILD_NUMBER
-
 sudo darch images push --user $DOCKER_LOGIN_USERNAME:$DOCKER_LOGIN_PASSWORD granra/darch-arch-$IMAGE:$TAG
 sudo darch images push --user $DOCKER_LOGIN_USERNAME:$DOCKER_LOGIN_PASSWORD granra/darch-arch-$IMAGE:latest
-sudo darch images push --user $DOCKER_LOGIN_USERNAME:$DOCKER_LOGIN_PASSWORD granra/darch-arch-$IMAGE:v$TRAVIS_BUILD_NUMBER
