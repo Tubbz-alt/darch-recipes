@@ -2,7 +2,7 @@ FROM archlinux/base:latest
 
 RUN echo -e "[aurnar]\nSigLevel = Never\nServer = https://f000.backblazeb2.com/file/aurnar/x86_64" >> /etc/pacman.conf && \
     yes | pacman -Suyy && \
-    pacman -S --noconfirm backblaze-b2 aurutils base-devel
+    pacman -S --noconfirm backblaze-b2 aurutils base-devel python-dateutil
 
 COPY base/aurnar /usr/bin/aurnar
 
