@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Backup our current image in case the new one is broken.
+sudo darch stage tag granra/darch-arch-workstation:latest granra/darch-arch-workstation:old --force
+sudo darch images pull granra/darch-arch-workstation:latest
+sudo darch stage upload granra/darch-arch-workstation:latest --force
+sudo darch stage clean

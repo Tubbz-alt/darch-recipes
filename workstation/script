@@ -21,4 +21,7 @@ install_packages msi-rgb
 # My workstation requires special kernel parameters
 cp darch-extract /darch-extract
 
+# Install update script
+cp darch-update /usr/local/bin/darch-update
+
 clear_package_cache

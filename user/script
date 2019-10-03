@@ -3,8 +3,11 @@ set -e
 
 . ../common
 
+# Install zsh
+install_packages zsh fzf
+
 # Add users
-useradd -m -G adm,ftp,games,video,http,log,rfkill,sys,systemd-journal,users,uucp,wheel -s /bin/bash arnar
+useradd -m -G adm,ftp,games,video,http,log,rfkill,sys,systemd-journal,users,uucp,wheel -s /usr/bin/zsh arnar
 
 # Set the user password
 if [ -n  "$USER_PASSWD" ]; then
@@ -22,6 +25,12 @@ runuser -l arnar -c "git clone https://github.com/arnarg/dotfiles.git ~/.dotfile
 runuser -l arnar -c "cd ~/.dotfiles && ./install"
 # Now that they are installed, removed dotbot to clean up the image.
 runuser -l arnar -c "rm -r ~/.dotfiles/dotbot"
+
+# Install zsh plugins
+runuser -l arnar -c "mkdir -p ~/.config/zsh/plugins"
+runuser -l arnar -c "git clone --single-branch -b v1.10.3 https://github.com/sindresorhus/pure.git ~/.config/zsh/plugins/pure"
+# One symlink in pure doesn't persist when I git pull for some reason
+runuser -l arnar -c "ln -s async.zsh ~/.config/zsh/plugins/pure/async"
 
 # Setup sudo
 install_packages sudo
