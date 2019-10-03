@@ -41,7 +41,7 @@ locale-gen
 cp hosts /etc/hosts
 
 # Timezone
-rm /etc/localtime
+rm -f /etc/localtime
 ln -s ../usr/share/zoneinfo/Iceland /etc/localtime
 
 # Time sync
