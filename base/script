@@ -31,7 +31,10 @@ wget -q -O- "https://www.archlinux.org/mirrorlist/?country=IS&country=SE&country
 pacman -Sy --noconfirm
 
 # Run base install, with dev tools. The "bootstrap" fs doesn't contain everything, just what you need to bootstrap.
-install_packages base base-devel linux lvm2 e2fsprogs
+install_packages base base-devel
+
+# Packages that were removed from the base group when it was changed to a metapackage
+install_packages linux linux-firmware lvm2 e2fsprogs device-mapper dhcpcd diffutils inetutils less man-db man-pages sysfsutils usbutils which
 
 # Setup the locales.
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
