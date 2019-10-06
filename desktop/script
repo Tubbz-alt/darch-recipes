@@ -4,7 +4,7 @@ set -e
 . ../common
 
 # Install sway
-install_packages sway swayidle xorg-server-xwayland dmenu bemenu-git waybar
+install_packages sway swayidle xorg-server-xwayland j4-dmenu-desktop bemenu-git waybar
 
 # My terminal of choice
 install_packages alacritty
@@ -14,9 +14,13 @@ install_packages ttf-inconsolata ttf-inconsolata-lgc-for-powerline ttf-roboto tt
 
 # My browser of choice
 install_packages firefox
+# Force firefox to start in wayland mode
+sed -i 's|^Exec=|Exec=env MOZ_ENABLE_WAYLAND=1 |g' /usr/share/applications/firefox.desktop
 
 # My music player of choice
 install_packages spotify
+# Add UI scaling to spotify
+sed -i 's|^Exec=spotify %U|Exec=spotify --force-device-scale-factor=1.5 %U|g' /usr/share/applications/spotify.desktop
 
 # I use pulseaudio
 install_packages pulseaudio
