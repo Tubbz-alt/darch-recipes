@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-IMAGES="base user desktop development workstation"
-TAG=`date +"%Y-%m-%d-%H%M%S"`
+#IMAGES="base user desktop development workstation"
+IMAGES="base"
+#TAG=`date +"%Y-%m-%d-%H%M%S"`
 
 if [[ -z $USER_PASSWD ]]
 then
@@ -12,8 +13,8 @@ then
 fi
 
 sudo darch recipes build \
-    -t "$TAG,latest" \
-    -p "granra/darch-arch-" \
+    -t "latest" \
+    -p "manjarolinux/darch-manjaro-" \
     -e ROOT_PASSWD="$(openssl rand -base64 18)" \
     -e USER_PASSWD=$USER_PASSWD \
     $IMAGES

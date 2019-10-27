@@ -3,49 +3,27 @@ set -e
 
 . ../common
 
-# Initialize the keys
-pacman-key --init
-pacman-key --populate archlinux
+# Switch to unstable
+pacman-mirrors --api -S unstable
 
-# Add my pre-compiled AUR packages repository
-cat <<EOF >> /etc/pacman.conf
-[aurnar]
-SigLevel = Never
-Server = https://f000.backblazeb2.com/file/aurnar/x86_64
-EOF
-
-# Resync the database
-pacman -Sy --noconfirm
-# Update gpg keys before we install anything else.
-pacman -S --noconfirm archlinux-keyring
 # Now update everything.
-pacman -Syu --noconfirm
-
-# Let's update the mirrors.
-install_packages wget sed
-wget -q -O- "https://www.archlinux.org/mirrorlist/?country=IS&country=SE&country=DK&protocol=https&ip_version=4&use_mirror_status=on" \
-  | sed -e "s/#Server/Server/g" \
-> /etc/pacman.d/mirrorlist
-
-# Resync the database
-pacman -Sy --noconfirm
+pacman -Syyu --noconfirm
 
 # Run base install, with dev tools. The "bootstrap" fs doesn't contain everything, just what you need to bootstrap.
 install_packages base base-devel
 
 # Packages that were removed from the base group when it was changed to a metapackage
-install_packages linux linux-firmware lvm2 e2fsprogs device-mapper dhcpcd diffutils inetutils less man-db man-pages sysfsutils usbutils which
+install_packages linux-firmware lvm2 e2fsprogs device-mapper dhcpcd diffutils inetutils less man-db man-pages sysfsutils usbutils which
 
-# Setup the locales.
-echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-locale-gen
+# Install Kernel
+install_packages linux53
 
 # Add /etc/hosts
 cp hosts /etc/hosts
 
 # Timezone
 rm -f /etc/localtime
-ln -s ../usr/share/zoneinfo/Iceland /etc/localtime
+ln -s ../usr/share/zoneinfo/America/New_York /etc/localtime
 
 # Time sync
 install_packages ntp
@@ -72,16 +50,5 @@ systemctl enable containerd
 mkdir -p /etc/containerd
 echo "root = \"/var/lib/darch/containerd\"" > /etc/containerd/config.toml
 
-# This one's nice to have available
-install_packages yay
-
-# Install my AUR(nar) repo update script
-cp aurnar /usr/local/bin/aurnar
-# And its dependencies
-install_packages backblaze-b2 aurutils
-
-# The system is on btrfs, need the tools
-install_packages btrfs-progs
-
-# This one's obvious
+# Install extra tools
 install_packages iptables bind-tools openssh rsync screen
